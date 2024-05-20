@@ -25,6 +25,17 @@ GAME_COLLECTION_BASE_DIR/
         SYMBOLIC_LINK_TO_MOST_RECENT_VERSION_NAMED_'latest'
 ```
 
+Maybe there should be a way to store only ONE version of a game; something like this:
+```
+GAME_COLLECTION_BASE_DIR/
+    GAME_DIR/
+        .lepus/        #  directory for Lepus-related files pertaining    
+            info.xml   #  to the game
+        GAME_FILE_A
+        GAME_FILE_B
+        GAME_FILE_ETC
+```
+
 ### Interface
 
 `lepus <-f FILE> GAME_ID GAME_VERSION`
@@ -52,3 +63,8 @@ This is where game IDs will be defined!
  - Game Metadata
     - Title
  - Game Directory
+
+### Other
+
+ - I would like to be able to treat a Lepus collection kind of like one would treat a Jellyfin collection
+    - perhaps use NFO files for game metadata?
