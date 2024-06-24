@@ -16,29 +16,39 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import os
 from argparse import ArgumentParser
 
-import lepus
+f_verbose = False
+
+def log(msg):
+	"""
+	prints a statement to the CLI
+	if run in 'verbose mode'
+	"""
+
+	if f_verbose:
+		print(msg)
 
 def main():
-    # parse arguments
-    parser = ArgumentParser()
+	# parse arguments
+	parser = ArgumentParser()
 
-    parser.add_argument(
-        "--version",
-        version="Project Lepus 0.x.y-alpha",
-        action="version"
-    )
+	parser.add_argument(
+	"-v", "--verbose",
+		action="store_true"
+	)
 
-    args = parser.parse_args()
+	args = parser.parse_args()
 
-    # run application
-    g = lepus.Game()
-    g.title = "Metroid Fusion"
-    g.exe_path = "/usr/bin/notify-send"
+	# handle parsed args
+	f_verbose = args.verbose
 
-    print(g.exe_path)
+	print(f_verbose)
 
+	# body
+	os.environ['HOME'] = os.path.join(os.path.dirname(__file__), "data")
+	log("env[HOME] = " + os.environ['HOME'])
 
 if __name__ == "__main__":
-    main()
+	main()

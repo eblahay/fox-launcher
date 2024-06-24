@@ -1,5 +1,5 @@
-# Project Lepus Changelog
+# Changelog
 
-## 0.x.y:
-### Overview
-Pre-Alpha; nothing's set in stone
+## 0.x.y-alpha - TBD
+
+_Alpha— First Version_

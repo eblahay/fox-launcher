@@ -1,5 +1,16 @@
 # Project Lepus Design Document
 
+## Index
+
+* [Purpose](#purpose)
+* [Description](#description)
+    * [Directory Structure](#directory-structure)
+    * [Interface](#interface)
+    * [Configuration](#configuration)
+        * [Things that Need to be defined in Configuration](#things-that-need-to-be-defined-in-configuration)
+* [New Ideas (2024-06)](#new-ideas-2024-06)
+    * [JSON-based Metadata](#json-based-metadata)
+
 ## Purpose
 
 Project Lepus is an application meant to allow to quickly & easily integrate new games/new *versions* of games into my videogame library in an organized fashion.
@@ -68,3 +79,26 @@ This is where game IDs will be defined!
 
  - I would like to be able to treat a Lepus collection kind of like one would treat a Jellyfin collection
     - perhaps use NFO files for game metadata?
+
+## New Ideas (2024-06)
+
+### JSON-based Metadata
+
+```
+{
+    "title": "Metroid Fusion",
+    "genre": [
+        "action-adventure",
+        "platformer"
+    ],
+    "publisher": "Nintendo",
+    "developer": "Nintendo R&D1",
+    "released": "2002-11-17",
+    "platform": "gba",
+    "rom": "/home/exampleuser/Games/Metroid Fusion (US).gba",
+    "launch flags": ""
+}
+```
+The above details an example of a simple, JSON-based metadata file for the game "Metroid Fusion".
+
+Prior to launching the game, Lepus would check the value of `platform`, and seeing that said value equals `"gba"`, Lepus would utilize its compatibility layer for the Gameboy Advance (Non-Existant as of Time of Writing), and it would know to look for the field `rom` to proceed. 

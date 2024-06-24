@@ -1,5 +1,3 @@
-#! /usr/bin/env python3
-
 #    Project Lepus: a videogame library manager
 #    Copyright (C) 2024  Ethan Blahay
 #
@@ -16,29 +14,18 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from argparse import ArgumentParser
+"""
+    A file for Lepus App-related code to go.
+    This will probably change later.
+"""
 
-import lepus
+class Game:
+    """
+    represents the concept of a single "Videogame"
+    in the collection
+    """
 
-def main():
-    # parse arguments
-    parser = ArgumentParser()
-
-    parser.add_argument(
-        "--version",
-        version="Project Lepus 0.x.y-alpha",
-        action="version"
-    )
-
-    args = parser.parse_args()
-
-    # run application
-    g = lepus.Game()
-    g.title = "Metroid Fusion"
-    g.exe_path = "/usr/bin/notify-send"
-
-    print(g.exe_path)
-
-
-if __name__ == "__main__":
-    main()
+    def __init__(self):
+        self.title = ""
+        self.exe_path = ""
+        
