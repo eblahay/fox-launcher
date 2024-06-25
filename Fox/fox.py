@@ -1,4 +1,4 @@
-#    Project Lepus: a videogame library manager
+#    Project Fox: a videogame library manager
 #    Copyright (C) 2024  Ethan Blahay
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -15,17 +15,19 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 """
-    A file for Lepus App-related code to go.
+    A file for Fox App-related code to go.
     This will probably change later.
 """
 
-class Game:
-    """
-    represents the concept of a single "Videogame"
-    in the collection
-    """
+import sqlite3
 
+import os
+
+class Fox:
+    """
+        a representation of a single instance of the Fox Application
+    """
     def __init__(self):
-        self.title = ""
-        self.exe_path = ""
-        
+        self.con = sqlite3.connect(
+            os.path.join(os.environ['HOME'], "fox.db")
+        )

@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-#    Project Lepus: a videogame library manager
+#    Project Fox: a videogame library manager
 #    Copyright (C) 2024  Ethan Blahay
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,8 @@
 
 from argparse import ArgumentParser
 
-import lepus
+import fox
+from fox import Fox
 
 def main():
     # parse arguments
@@ -26,19 +27,13 @@ def main():
 
     parser.add_argument(
         "--version",
-        version="Project Lepus 0.x.y-alpha",
+        version="Project Fox 0.x.y-alpha",
         action="version"
     )
 
     args = parser.parse_args()
 
-    # run application
-    g = lepus.Game()
-    g.title = "Metroid Fusion"
-    g.exe_path = "/usr/bin/notify-send"
-
-    print(g.exe_path)
-
+    app = Fox()
 
 if __name__ == "__main__":
     main()
