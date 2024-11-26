@@ -31,9 +31,15 @@ def main():
         action="version"
     )
 
+    parser.add_argument(
+        "gameid",
+        help="ID of the game to be launched",
+        type=int
+    )
+
     args = parser.parse_args()
 
-    app = Fox()
+    app = Fox(args.gameid)
 
 if __name__ == "__main__":
     main()

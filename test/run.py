@@ -42,6 +42,12 @@ def main():
 		action="store_true"
 	)
 
+	parser.add_argument(
+        "gameid",
+        help="ID of the game to be launched",
+        type=str
+    )
+
 
 	args = parser.parse_args()
 
@@ -59,7 +65,7 @@ def main():
 
 	# run lepus main
 	log("Running Project Fox (@ " + EXE + ")\n\t=✪=\t=✪=\t=✪=")
-	subprocess.run([EXE])
+	subprocess.run([EXE] + [args.gameid])
 
 
 if __name__ == "__main__":
