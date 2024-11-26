@@ -21,6 +21,9 @@ from argparse import ArgumentParser
 import fox
 from fox import Fox
 
+def log(msg):
+    print(msg)
+
 def main():
     # parse arguments
     parser = ArgumentParser()
@@ -32,14 +35,41 @@ def main():
     )
 
     parser.add_argument(
-        "gameid",
+        '-g',"--gameid",
         help="ID of the game to be launched",
-        type=int
+        type=int,
+        default=None
+    )
+
+    parser.add_argument(
+        '-l','--list',
+        help="lists all of the games in the databasse & quits",
+        action='store_true'
+    )
+
+    parser.add_argument(
+        '-a','--add',
+        help="adds game to database",
+        action='extend',
+        nargs='+',
+        default=None
     )
 
     args = parser.parse_args()
 
-    app = Fox(args.gameid)
+    app = Fox()
+    # interact w/ app
+
+    if args.add != None:
+        app.addGame(args.add[0], args.add[1], args.add[2], args.add[3])
+
+    if args.list:
+        for row in app.ls():
+            print(row)
+            
+    elif args.gameid != None:
+        app.run(args.gameid)
 
 if __name__ == "__main__":
     main()
+    log('=MAIN OVER=')

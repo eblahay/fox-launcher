@@ -18,55 +18,18 @@
 
 import os
 import subprocess
-from argparse import ArgumentParser
 
-f_verbose = False
-
-def log(*msg):
-	"""
-	prints a statement to the CLI
-	if run in 'verbose mode'
-	"""
-
-	if f_verbose:
-		for a in msg:
-			print(a, end=" ")
-		print()
 
 def main():
-	# parse arguments
-	parser = ArgumentParser()
+    # set env[HOME] to point to testing data dir
+    os.environ['HOME'] = os.path.join(os.path.dirname(__file__), "data")
 
-	parser.add_argument(
-	"-v", "--verbose",
-		action="store_true"
-	)
+    # find lepus main
+    EXE = os.path.normpath(os.path.join(os.path.dirname(__file__), os.pardir, "Fox", "main.py"))
 
-	parser.add_argument(
-        "gameid",
-        help="ID of the game to be launched",
-        type=str
-    )
-
-
-	args = parser.parse_args()
-
-	# handle parsed args
-	global f_verbose
-	f_verbose = args.verbose
-
-	# set env[HOME] to point to testing data dir
-	os.environ['HOME'] = os.path.join(os.path.dirname(__file__), "data")
-	log("env[HOME]:", os.environ['HOME'])
-
-	# find lepus main
-	EXE = os.path.normpath(os.path.join(os.path.dirname(__file__), os.pardir, "Fox", "main.py"))
-	log("Fox Bin:", EXE)
-
-	# run lepus main
-	log("Running Project Fox (@ " + EXE + ")\n\t=✪=\t=✪=\t=✪=")
-	subprocess.run([EXE] + [args.gameid])
+    # run lepus main
+    subprocess.run([EXE] + os.sys.argv[1:])
 
 
 if __name__ == "__main__":
-	main()
+    main()

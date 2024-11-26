@@ -22,12 +22,82 @@
 import sqlite3
 
 import os
+import subprocess
 
 class Fox:
     """
         a representation of a single instance of the Fox Application
     """
     def __init__(self):
-        self.con = sqlite3.connect(
-            os.path.join(os.environ['HOME'], "fox.db")
-        )
+        userdata_dir = os.path.join(os.environ['HOME'], '.local', 'share', 'fox-launcher')
+        games_db_path = os.path.join(userdata_dir, 'games.db')
+
+        # check whether userdata dir exists
+        if not os.path.isdir(userdata_dir):
+            os.mkdir(userdata_dir)
+
+        # check whether db file exists & set flag accordingly
+        f_new_db = not os.path.exists(games_db_path)
+
+        # create initial database objects
+        try:
+            self.db = sqlite3.connect(
+                games_db_path
+            )
+        except sqlite3.OperationalError as e:
+            print("ERROR: Unable to open database")
+            os.sys.exit(1)
+
+        self.cur = self.db.cursor()
+        cur = self.cur
+
+        if f_new_db:
+            self.createDB()
+
+    def __del__(self):
+        # close database
+        self.db.close()
+
+    def createDB(self):
+        # create database
+        self.cur.execute("CREATE TABLE games(id INTEGER PRIMARY KEY, title, platform, exe)")
+
+        # commit; mk chgs permanent
+        self.db.commit()
+
+    def addGame(self, id, platform, exe, title):
+        self.cur.execute(f"""
+            INSERT INTO games VALUES
+                ({id}, '{title}', '{platform}', '{exe}')
+        """)
+
+        # commit; mk chgs permanent
+        self.db.commit()
+
+    def ls(self):
+        # returns list of all contents of 'game' table
+
+        self.cur.execute("""
+            SELECT
+                id,
+                title,
+                platform,
+                exe
+            FROM
+                games;
+        """)
+        return self.cur.fetchall()
+
+    def run(self, gameid):
+        # runs game corresponding to the given ID
+
+        platform = self.cur.execute("SELECT platform FROM games WHERE id = ?", (str(gameid))).fetchone()[0]
+        exe = self.cur.execute("SELECT exe FROM games WHERE id = ?", (str(gameid))).fetchone()[0]
+
+        match platform:
+            case 'linux':
+                subprocess.Popen([exe], start_new_session=True)
+            case 'windows':
+                WINE = "/usr/bin/wine"
+                subprocess.Popen([WINE, exe], start_new_session=True)
+
