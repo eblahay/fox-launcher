@@ -1,7 +1,6 @@
 # Fox Launcher
-This is an application which provides a quick & easy way for me to organize & update my local videogame library.
 
-It's called "Fox" b/c it should be fast & nimble, just like a fox!
+a simple game-launcher
 
 ## See Also
 
